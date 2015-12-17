@@ -28,7 +28,8 @@
             {{ message }}
         </div>
         {% endfor %}
-        <h5>发表者：{{ item.poster }}， 代码语言 : {{ item.syntax }}</h5>
+        <h4><a href="{{ url_for('download', codeid=item.id) }}">下载代码</a></h4>
+        <h5>发表者：{{ item.poster }}， 代码语言：{{ item.syntax }}，提交时间：{{ timestr }}</h5>
         <pre class="prettyprint">{{ item.content }}</pre>
     </div>
 {% endblock %}
