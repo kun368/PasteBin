@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash
 from flask.ext.wtf import Form
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bootstrap import Bootstrap
+from flask.ext.script import Manager, Shell
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length
 import os
@@ -14,6 +15,7 @@ app.config['app.config[SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(b
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
+manager = Manager(app)
 
 
 class CodeItem(db.Model):
@@ -26,6 +28,7 @@ class CodeItem(db.Model):
 choices=[('Plain', 'Plain'), ('C', 'C'), ('C++', 'C++'),  ('Java', 'Java'), ('Python', 'Python'),
          ('C#', 'C#'), ('PHP', 'PHP'), ('Ruby', 'Ruby'), ('Matlab', 'Matlab')
 ]
+
 
 class CodeForm(Form):
     poster = StringField('昵称', validators=[Length(1, 60, '请输入昵称')])
@@ -53,7 +56,13 @@ def show(codeid):
     return render_template('show.html', item=item)
 
 
+def make_shell_context():
+    return dict(app=app, CodeItem=CodeItem)
+
+manager.add_command("shell", Shell(make_context=make_shell_context))
+
+
 if __name__ == '__main__':
     db.drop_all()
     db.create_all()
-    app.run(debug=True)
+    manager.run()
