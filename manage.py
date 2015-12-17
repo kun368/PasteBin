@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash
 from flask.ext.wtf import Form
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bootstrap import Bootstrap
-from flask.ext.script import Manager, Shell
+from flask.ext.script import Manager, Shell, Server
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length
 import os
@@ -60,6 +60,7 @@ def make_shell_context():
     return dict(app=app, CodeItem=CodeItem)
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
+manager.add_command("runserver", Server(host='0.0.0.0', port=8777))
 
 
 if __name__ == '__main__':
