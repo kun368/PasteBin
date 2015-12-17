@@ -11,9 +11,7 @@ from random import randint
 basedir = os.path.abspath(os.path.dirname(__name__))
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
-app.url_map.default_subdomain = 'pa'
-app.config['SERVER_NAME'] = 'zzkun.com'
+# app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'hard-to-guess-im-code-kun'
 app.config['app.config[SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
