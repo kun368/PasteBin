@@ -12,6 +12,8 @@ basedir = os.path.abspath(os.path.dirname(__name__))
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+app.url_map.default_subdomain = 'pa'
+app.config['SERVER_NAME'] = 'zzkun.com'
 app.config['SECRET_KEY'] = 'hard-to-guess-im-code-kun'
 app.config['app.config[SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
@@ -27,13 +29,10 @@ class CodeItem(db.Model):
     syntax = db.Column(db.String(32))
     content = db.Column(db.Text())
 
-#  后添加以下任何一种语言。“bash”, “c”, “cc”, “cpp”, “cs”, “csh”, “cyc”, “cv”, “htm”,
-# “html”, ”java”, “js”, “m”, “mxml”, “perl”, “pl”, “pm”, “py”, “rb”, “sh”, ”xhtml”, “xml”, “xsl”
-
 choices=[('Plain', 'Plain'), ('C', 'C'), ('C++', 'C++'),  ('Java', 'Java'), ('Python', 'Python'),
          ('C#', 'C#'), ('PHP', 'PHP'), ('Ruby', 'Ruby'), ('Matlab', 'Matlab'), ('Bash', 'Bash'),
-         ('html', 'html'), ('css', 'css'), ('javascript', 'javascript'), ('xml', 'xml'), ('Perl', 'Perl'),
-         ('R', 'R'), ('swift', 'swift'), ('SQL', 'SQL'), ('Delphi', 'Delphi'), ('Lisp', 'Lisp'),
+         ('Html', 'Html'), ('CSS', 'CSS'), ('Javascript', 'Javascript'), ('XML', 'XML'), ('Perl', 'Perl'),
+         ('R', 'R'), ('Swift', 'Swift'), ('SQL', 'SQL'), ('Delphi', 'Delphi'), ('Lisp', 'Lisp'),
          ('Pascal', 'Pascal'), ('Ada', 'Ada')
 ]
 
