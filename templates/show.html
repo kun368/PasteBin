@@ -1,0 +1,30 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+    Codekun - Pastebin
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+         <div class="page-header">
+             <h1>Pastebin</h1>
+             <h5>快速保存您的代码，Codekun为您提供服务～</h5>
+        </div>
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        <h3>Coder：{{ item.poster }}</h3>
+        <h5>Type : {{ item.syntax }}</h5>
+        <pre>
+            {{ item.content }}
+        </pre>
+    </div>
+{% endblock %}
